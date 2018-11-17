@@ -68,7 +68,7 @@ class TokenNetworkRegistry:
         address = self.proxy.contract.functions.token_to_token_networks(
             to_checksum_address(token_address),
         ).call()
-        address = to_canonical_address(address)
+        address = typing.Address(to_canonical_address(address))
 
         if is_same_address(address, NULL_ADDRESS):
             return None
@@ -79,6 +79,7 @@ class TokenNetworkRegistry:
         if not is_binary_address(token_address):
             raise InvalidAddress('Expected binary address format for token')
 
+        # XXX the conversion here is a bit weird
         token_address = typing.Address(token_address)
 
         log_details = {
