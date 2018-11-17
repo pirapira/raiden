@@ -322,7 +322,7 @@ class ChainState(State):
         restored = cls(
             pseudo_random_generator=pseudo_random_generator,
             block_number=int(data['block_number']),
-            our_address=to_canonical_address(data['our_address']),
+            our_address=typing.Address(to_canonical_address(data['our_address'])),
             chain_id=data['chain_id'],
         )
 
@@ -359,7 +359,7 @@ class PaymentNetworkState(State):
             address: typing.Address,
             token_network_list: typing.List['TokenNetworkState'],
     ):
-        if not isinstance(address, bytes):  # bytes --> Typing.Address
+        if not isinstance(address, typing.Address):
             raise ValueError('address must be an address instance')
 
         self.address = address
@@ -397,7 +397,7 @@ class PaymentNetworkState(State):
     @classmethod
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'PaymentNetworkState':
         restored = cls(
-            address=to_canonical_address(data['address']),
+            address=typing.Address(to_canonical_address(data['address'])),
             token_network_list=[
                 network for network in data['tokennetworks']
             ],
@@ -1313,7 +1313,7 @@ class NettingChannelEndState(State):
     )
 
     def __init__(self, address: typing.Address, balance: typing.Balance):
-        if not isinstance(address, bytes):  # typing.Address
+        if not isinstance(address, typing.Address):
             raise ValueError('address must be an address instance')
 
         if not isinstance(balance, typing.T_TokenAmount):

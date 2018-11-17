@@ -273,6 +273,12 @@ class TokenNetwork:
     ) -> ParticipantDetails:
         """ Returns a dictionary with the channel participant information. """
 
+        if not isinstance(participant, typing.Address):
+            raise ValueError('participant must be an instane of Address')
+
+        if not isinstance(partner, typing.Address):
+            raise ValueError('partner must be an instane of Address')
+
         data = self._call_and_check_result(
             'getChannelParticipantInfo',
             channel_identifier,
@@ -497,6 +503,9 @@ class TokenNetwork:
         """
         if not isinstance(total_deposit, int):
             raise ValueError('total_deposit needs to be an integral number.')
+
+        if not isinstance(partner, typing.Address):
+            raise ValueError('partner needs to be an Address.')
 
         self._check_for_outdated_channel(
             self.node_address,
