@@ -188,7 +188,7 @@ class ConnectionsResource(BaseResource):
     ):
         return self.rest_api.connect(
             registry_address=self.rest_api.raiden_api.raiden.default_registry.address,
-            token_address=token_address,
+            token_address=typing.Address(token_address),
             funds=funds,
             initial_channel_target=initial_channel_target,
             joinable_funds_target=joinable_funds_target,
@@ -198,7 +198,7 @@ class ConnectionsResource(BaseResource):
     def delete(self, token_address):
         return self.rest_api.leave(
             registry_address=self.rest_api.raiden_api.raiden.default_registry.address,
-            token_address=token_address,
+            token_address=typing.Address(token_address),
         )
 
 
