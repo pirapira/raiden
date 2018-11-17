@@ -188,7 +188,7 @@ class RaidenAPI:
 
         token_network_identifier = views.get_token_network_identifier_by_token_address(
             chain_state=views.state_from_raiden(self.raiden),
-            payment_network_id=registry_address,
+            payment_network_id=typing.Address(registry_address),
             token_address=token_address,
         )
 
@@ -230,7 +230,7 @@ class RaidenAPI:
 
         token_network_identifier = views.get_token_network_identifier_by_token_address(
             chain_state=views.state_from_raiden(self.raiden),
-            payment_network_id=registry_address,
+            payment_network_id=typing.Address(registry_address),
             token_address=token_address,
         )
 
@@ -487,7 +487,7 @@ class RaidenAPI:
         )
         token_network_identifier = views.get_token_network_identifier_by_token_address(
             chain_state=views.state_from_raiden(self.raiden),
-            payment_network_id=registry_address,
+            payment_network_id=typing.Address(registry_address),
             token_address=token_address,
         )
 
@@ -742,7 +742,7 @@ class RaidenAPI:
     ):
         events = blockchain_events.get_token_network_registry_events(
             chain=self.raiden.chain,
-            token_network_registry_address=registry_address,
+            token_network_registry_address=typing.Address(registry_address),
             contract_manager=self.raiden.contract_manager,
             events=blockchain_events.ALL_EVENTS,
             from_block=from_block,

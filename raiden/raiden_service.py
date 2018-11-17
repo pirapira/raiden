@@ -507,7 +507,7 @@ class RaidenService(Runnable):
         state_change = ActionChangeNodeNetworkState(node_address, network_state)
         self.handle_state_change(state_change)
 
-    def start_health_check_for(self, node_address):
+    def start_health_check_for(self, node_address: Address):
         # This function is a noop during initialization. It can be called
         # through the alarm task while polling for new channel events.  The
         # healthcheck will be started by self.start_neighbours_healthcheck()
@@ -691,7 +691,7 @@ class RaidenService(Runnable):
             )
 
             for token_network in token_networks:
-                token_network_proxy = self.chain.token_network(token_network)
+                token_network_proxy = self.chain.token_network(typing.Address(token_network))
                 self.blockchain_events.add_token_network_listener(
                     token_network_proxy=token_network_proxy,
                     contract_manager=self.contract_manager,

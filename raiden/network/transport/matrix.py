@@ -424,7 +424,7 @@ class MatrixTransport(Runnable):
         """
         self._address_to_userids.setdefault(address, set())
 
-    def start_health_check(self, node_address):
+    def start_health_check(self, node_address: Address):
         """Start healthcheck (status monitoring) for a peer
 
         It also whitelists the address to answer invites and listen for messages
@@ -1130,7 +1130,7 @@ class MatrixTransport(Runnable):
             self._userid_to_presence[user_id] = presence
         return self._userid_to_presence[user_id]
 
-    def _update_address_presence(self, address):
+    def _update_address_presence(self, address: Address):
         """ Update synthesized address presence state from user presence state """
         composite_presence = {
             self._get_user_presence(uid)

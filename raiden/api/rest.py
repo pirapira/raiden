@@ -711,7 +711,7 @@ class RestAPI:
         for token in self.raiden_api.get_tokens_list(registry_address):
             token_network_identifier = views.get_token_network_identifier_by_token_address(
                 views.state_from_raiden(self.raiden_api.raiden),
-                payment_network_id=registry_address,
+                payment_network_id=typing.Address(registry_address),
                 token_address=token,
             )
 

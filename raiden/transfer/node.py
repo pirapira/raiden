@@ -187,7 +187,7 @@ def subdispatch_to_paymenttask(
 
             channel_state = views.get_channelstate_by_token_network_identifier(
                 chain_state,
-                token_network_identifier,
+                typing.Address(token_network_identifier),
                 channel_identifier,
             )
 
@@ -337,7 +337,7 @@ def subdispatch_targettask(
     if is_valid_subtask:
         channel_state = views.get_channelstate_by_token_network_identifier(
             chain_state,
-            token_network_identifier,
+            typing.Address(token_network_identifier),
             channel_identifier,
         )
 
@@ -382,7 +382,7 @@ def maybe_add_tokennetwork(
 
     if payment_network_state is None:
         payment_network_state = PaymentNetworkState(
-            payment_network_identifier,
+            typing.Address(payment_network_identifier),
             [token_network_state],
         )
 

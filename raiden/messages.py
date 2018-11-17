@@ -1284,7 +1284,8 @@ class LockedTransfer(LockedTransferBase):
             message_identifier=event.message_identifier,
             payment_identifier=transfer.payment_identifier,
             nonce=balance_proof.nonce,
-            token_network_address=balance_proof.token_network_identifier,
+            token_network_address
+                =typing.T_TokenNetworkAddress(balance_proof.token_network_identifier),
             token=transfer.token,
             channel_identifier=balance_proof.channel_identifier,
             transferred_amount=balance_proof.transferred_amount,

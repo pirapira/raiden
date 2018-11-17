@@ -70,8 +70,7 @@ def address_checksum_and_decode(addr: str) -> typing.Address:
         raise InvalidAddress('Address must be EIP55 checksummed')
 
     addr = decode_hex(addr)
-    assert len(addr) in (20, 0)
-    return addr
+    return typing.Address(addr)
 
 
 def data_encoder(data: bytes, length: int = 0) -> str:
