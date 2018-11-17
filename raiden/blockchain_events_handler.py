@@ -128,9 +128,6 @@ def handle_channel_new_balance(raiden, event: Event):
     transaction_hash = data['transactionHash']
     assert transaction_hash, 'A mined transaction must have the hash field'
 
-    # XXX dirty hack to be removed
-    participant_address = typing.Address(participant_address)
-
     previous_channel_state = views.get_channelstate_by_token_network_identifier(
         views.state_from_raiden(raiden),
         token_network_identifier,
