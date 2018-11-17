@@ -137,8 +137,8 @@ class RaidenAPI:
         if not is_binary_address(registry_address):
             raise InvalidAddress('registry_address must be a valid address in binary')
 
-        if not is_binary_address(token_address):
-            raise InvalidAddress('token_address must be a valid address in binary')
+        if not isinstance(token_address, typing.T_TokenAddress):
+            raise InvalidAddress('token_address must be an instance of T_TokenAddress')
 
         if token_address in self.get_tokens_list(registry_address):
             raise AlreadyRegisteredTokenAddress('Token already registered')

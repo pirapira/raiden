@@ -41,7 +41,7 @@ def handle_tokennetwork_new(raiden, event: Event):
         from_block=data['blockNumber'],
     )
 
-    token_address = data_decoder(event.event_data['args']['token_address'])
+    token_address = typing.Address(data_decoder(event.event_data['args']['token_address']))
 
     token_network_state = TokenNetworkState(
         token_network_address,

@@ -684,9 +684,6 @@ class MediationPairState(State):
         if not isinstance(payer_transfer, LockedTransferSignedState):
             raise ValueError('payer_transfer must be a LockedTransferSignedState instance')
 
-        # XXX remove
-        payee_address = typing.Address(payee_address)
-
         if not isinstance(payee_address, typing.Address):
             raise ValueError('payee_address must be an address')
 

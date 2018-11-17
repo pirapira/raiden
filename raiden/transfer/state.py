@@ -419,11 +419,11 @@ class TokenNetworkState(State):
 
     def __init__(self, address: typing.TokenNetworkID, token_address: typing.TokenAddress):
 
-        if not isinstance(address, bytes):  # bytes --> Typing.Address
-            raise ValueError('address must be an address instance')
+        if not isinstance(address, typing.Address):
+            raise ValueError('address must be an Address instance')
 
-        if not isinstance(token_address, bytes):  # bytes --> Typing.Address
-            raise ValueError('token_address must be an address instance')
+        if not isinstance(token_address, typing.T_TokenAddress):
+            raise ValueError('token_address must be a TokenAddress instance')
 
         self.address = address
         self.token_address = token_address
@@ -474,8 +474,8 @@ class TokenNetworkState(State):
     @classmethod
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'TokenNetworkState':
         restored = cls(
-            address=to_canonical_address(data['address']),
-            token_address=to_canonical_address(data['token_address']),
+            address=typing.Address(to_canonical_address(data['address'])),
+            token_address=typing.T_TokenAddress(to_canonical_address(data['token_address'])),
         )
         restored.network_graph = data['network_graph']
         restored.channelidentifiers_to_channels = map_dict(
@@ -548,7 +548,7 @@ class TokenNetworkGraphState(State):
     @classmethod
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'TokenNetworkGraphState':
         restored = cls(
-            token_network_address=to_canonical_address(data['token_network_id']),
+            token_network_address=typing.Address(to_canonical_address(data['token_network_id'])),
         )
         restored.network = serialization.deserialize_networkx_graph(data['network'])
         restored.channel_identifier_to_participants = map_dict(
@@ -667,7 +667,7 @@ class RouteState(State):
     @classmethod
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'RouteState':
         restored = cls(
-            node_address=to_canonical_address(data['node_address']),
+            node_address=typing.Address(to_canonical_address(data['node_address'])),
             channel_identifier=int(data['channel_identifier']),
         )
 
@@ -977,7 +977,7 @@ class BalanceProofSignedState(State):
             channel_identifier=int(data['channel_identifier']),
             message_hash=serialization.deserialize_bytes(data['message_hash']),
             signature=serialization.deserialize_bytes(data['signature']),
-            sender=to_canonical_address(data['sender']),
+            sender=typing.Address(to_canonical_address(data['sender'])),
             chain_id=data['chain_id'],
         )
 
@@ -1382,7 +1382,7 @@ class NettingChannelEndState(State):
     @classmethod
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'NettingChannelEndState':
         restored = cls(
-            address=to_canonical_address(data['address']),
+            address=typing.Address(to_canonical_address(data['address'])),
             balance=int(data['contract_balance']),
         )
         restored.secrethashes_to_lockedlocks = map_dict(

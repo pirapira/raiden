@@ -76,11 +76,8 @@ class TokenNetworkRegistry:
         return address
 
     def add_token(self, token_address: typing.TokenAddress):
-        if not is_binary_address(token_address):
-            raise InvalidAddress('Expected binary address format for token')
-
-        # XXX the conversion here is a bit weird
-        token_address = typing.Address(token_address)
+        if not isinstance(token_address, typing.T_TokenAddress):
+            raise InvalidAddress('Expected a T_TokenAddress instance for token')
 
         log_details = {
             'node': pex(self.node_address),
