@@ -169,7 +169,7 @@ class RegisterTokenResource(BaseResource):
     def put(self, token_address):
         return self.rest_api.register_token(
             self.rest_api.raiden_api.raiden.default_registry.address,
-            token_address,
+            typing.Address(token_address),
         )
 
 

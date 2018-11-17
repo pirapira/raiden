@@ -183,7 +183,7 @@ class RaidenAPI:
         """
         if not is_binary_address(registry_address):
             raise InvalidAddress('registry_address must be a valid address in binary')
-        if not is_binary_address(token_address):
+        if not isinstance(token_address, typing.T_TokenAddress):
             raise InvalidAddress('token_address must be a valid address in binary')
 
         token_network_identifier = views.get_token_network_identifier_by_token_address(
@@ -251,6 +251,10 @@ class RaidenAPI:
         """ Open a channel with the peer at `partner_address`
         with the given `token_address`.
         """
+        if not isinstance(token_address, typing.T_TokenAddress):
+            raise ValueError(
+                'token_address should be a TokenAddress but got {}'.format(token_address))
+
         if settle_timeout is None:
             settle_timeout = self.raiden.config['settle_timeout']
 

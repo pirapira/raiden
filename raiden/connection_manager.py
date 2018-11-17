@@ -94,7 +94,8 @@ class ConnectionManager:
         self.raiden = raiden
         self.registry_address = token_network_registry.address
         self.token_network_identifier = token_network_identifier
-        self.token_address = token_network_state.token_address
+        # XXX the conversion here is weird.
+        self.token_address = Address(token_network_state.token_address)
 
         self.lock = Semaphore()  #: protects self.funds and self.initial_channel_target
         self.api = RaidenAPI(raiden)

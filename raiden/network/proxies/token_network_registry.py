@@ -62,12 +62,6 @@ class TokenNetworkRegistry:
         there is no correspoding address.
         """
 
-        # XXX to be removed
-        if token_address is None:
-            raise ValueError('token_address must be an address, but got None')
-        else:
-            token_address = typing.T_TargetAddress(token_address)
-
         if not isinstance(token_address, typing.T_TargetAddress):
             raise ValueError('token_address must be an address, but got {}'.format(token_address))
 

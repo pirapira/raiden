@@ -125,7 +125,7 @@ class TokenNetwork:
 
     def token_address(self) -> typing.Address:
         """ Return the token of this manager. """
-        return to_canonical_address(self.proxy.contract.functions.token().call())
+        return typing.Address(to_canonical_address(self.proxy.contract.functions.token().call()))
 
     def new_netting_channel(
             self,

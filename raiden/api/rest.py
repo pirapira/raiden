@@ -561,6 +561,7 @@ class RestAPI:
             token_address=to_checksum_address(token_address),
             settle_timeout=settle_timeout,
         )
+        token_address = typing.Address(token_address)
         token = self.raiden_api.raiden.chain.token(token_address)
         balance = token.balance_of(self.raiden_api.raiden.address)
 

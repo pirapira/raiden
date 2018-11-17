@@ -78,7 +78,7 @@ def handle_channel_new(raiden, event: Event):
         )
         token_address = channel_proxy.token_address()
         channel_state = get_channel_state(
-            token_address,
+            typing.Address(token_address),
             raiden.default_registry.address,
             token_network_identifier,
             raiden.config['reveal_timeout'],

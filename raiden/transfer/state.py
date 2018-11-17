@@ -1459,6 +1459,9 @@ class NettingChannelState(State):
         if not isinstance(open_transaction, TransactionExecutionStatus):
             raise ValueError('open_transaction must be a TransactionExecutionStatus instance')
 
+        if not isinstance(token_address, typing.Address):
+            raise ValueError('token_address must be an Address')
+
         if open_transaction.result != TransactionExecutionStatus.SUCCESS:
             raise ValueError(
                 'Cannot create a NettingChannelState with a non successfull open_transaction',
@@ -1573,7 +1576,7 @@ class NettingChannelState(State):
         restored = cls(
             identifier=int(data['identifier']),
             chain_id=data['chain_id'],
-            token_address=to_canonical_address(data['token_address']),
+            token_address=typing.Address(to_canonical_address(data['token_address'])),
             payment_network_identifier=to_canonical_address(data['payment_network_identifier']),
             token_network_identifier=to_canonical_address(data['token_network_identifier']),
             reveal_timeout=int(data['reveal_timeout']),
@@ -1669,7 +1672,7 @@ class TransactionChannelNewBalance(State):
     @classmethod
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'TransactionChannelNewBalance':
         restored = cls(
-            participant_address=to_canonical_address(data['participant_address']),
+            participant_address=typing.Address(to_canonical_address(data['participant_address'])),
             contract_balance=int(data['contract_balance']),
             deposit_block_number=int(data['deposit_block_number']),
         )
