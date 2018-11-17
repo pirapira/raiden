@@ -99,7 +99,7 @@ class PartnersResourceByTokenAddress(BaseResource):
     def get(self, token_address):
         return self.rest_api.get_partners_by_token(
             self.rest_api.raiden_api.raiden.default_registry.address,
-            token_address,
+            typing.Address(token_address),
         )
 
 
@@ -129,7 +129,7 @@ class BlockchainEventsTokenResource(BaseResource):
         to_block = to_block or 'latest'
 
         return self.rest_api.get_blockchain_events_token_network(
-            token_address=token_address,
+            token_address=typing.Address(token_address),
             from_block=from_block,
             to_block=to_block,
         )
@@ -145,7 +145,7 @@ class ChannelBlockchainEventsResource(BaseResource):
         to_block = to_block or 'latest'
 
         return self.rest_api.get_blockchain_events_channel(
-            token_address=token_address,
+            token_address=typing.Address(token_address),
             partner_address=partner_address,
             from_block=from_block,
             to_block=to_block,
@@ -226,7 +226,7 @@ class PaymentResource(BaseResource):
             offset: int = None,
     ):
         return self.rest_api.get_raiden_events_payment_history_with_timestamps(
-            token_address=token_address,
+            token_address=typing.T_TokenAddress(token_address),
             target_address=target_address,
             limit=limit,
             offset=offset,
@@ -242,7 +242,7 @@ class PaymentResource(BaseResource):
     ):
         return self.rest_api.initiate_payment(
             registry_address=self.rest_api.raiden_api.raiden.default_registry.address,
-            token_address=token_address,
+            token_address=typing.T_TokenAddress(token_address),
             target_address=target_address,
             amount=amount,
             identifier=identifier,
