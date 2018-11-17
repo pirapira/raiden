@@ -107,11 +107,11 @@ def assert_transfer_values(payment_identifier, token, recipient):
     if payment_identifier > UINT64_MAX:
         raise ValueError('payment_identifier is too large')
 
-    if len(token) != 20:
-        raise ValueError('token is an invalid address')
+    if not isinstance(token, Address):
+        raise ValueError('token is not an address')
 
-    if len(recipient) != 20:
-        raise ValueError('recipient is an invalid address')
+    if not isinstance(recipient, Address):
+        raise ValueError('recipient is not an address')
 
 
 def decode(data: bytes) -> 'Message':

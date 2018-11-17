@@ -4,8 +4,25 @@ from typing import Dict, List, NewType, Optional, Tuple, Union
 T_ABI = dict
 ABI = NewType('ABI', T_ABI)
 
-T_Address = bytes
-Address = NewType('Address', T_Address)
+class AddressOrEmpty(bytes):
+    """A byte sequence representing an address."""
+    def __init__(self, raw_bytes: bytes):
+        if not self.is_valid():
+            raise ValueError('Expected an address or empty byte sequence, but got {}'
+                             .format(raw_bytes))
+
+    def is_valid(self):
+        return len(self) in {0, 20}
+
+class Address(AddressOrEmpty):
+    """A byte sequence representing an address."""
+    def __init__(self, raw_bytes: bytes):
+        if not self.is_valid():
+            raise ValueError('Expected an address, but got {}'
+                             .format(raw_bytes))
+
+    def is_valid(self):
+        return len(self) == 20
 
 T_AddressHex = str
 AddressHex = NewType('AddressHex', T_AddressHex)
@@ -42,7 +59,7 @@ ChannelID = NewType('ChannelID', T_ChannelID)
 T_ChannelState = int
 ChannelState = NewType('ChannelState', T_ChannelState)
 
-T_InitiatorAddress = T_Address
+T_InitiatorAddress = Address
 InitiatorAddress = NewType('InitiatorAddress', Address)
 
 T_Locksroot = bytes
@@ -84,13 +101,13 @@ ChainID = NewType('ChainID', T_ChainID)
 T_Keccak256 = bytes
 Keccak256 = NewType('Keccak256', T_Keccak256)
 
-T_TargetAddress = T_Address
+T_TargetAddress = Address
 TargetAddress = NewType('TargetAddress', Address)
 
-T_TokenAddress = T_Address
+T_TokenAddress = Address
 TokenAddress = NewType('TokenAddres', Address)
 
-T_TokenNetworkAddress = T_Address
+T_TokenNetworkAddress = Address
 TokenNetworkAddress = NewType('TokenNetworkAddress', Address)
 
 T_TokenNetworkID = bytes
@@ -108,7 +125,7 @@ Secret = NewType('Secret', T_Secret)
 T_SecretHash = bytes
 SecretHash = NewType('SecretHash', T_SecretHash)
 
-T_SecretRegistryAddress = T_Address
+T_SecretRegistryAddress = Address
 SecretRegistryAddress = NewType('SecretRegistryAddress', Address)
 
 T_Signature = bytes

@@ -61,6 +61,7 @@ from raiden.utils import (
 )
 from raiden.utils.runnable import Runnable
 from raiden_contracts.contract_manager import ContractManager
+from raiden.utils.typing import Address
 
 log = structlog.get_logger(__name__)  # pylint: disable=invalid-name
 
@@ -502,7 +503,7 @@ class RaidenService(Runnable):
 
         return event_list
 
-    def set_node_network_state(self, node_address, network_state):
+    def set_node_network_state(self, node_address: Address, network_state):
         state_change = ActionChangeNodeNetworkState(node_address, network_state)
         self.handle_state_change(state_change)
 

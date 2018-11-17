@@ -442,7 +442,7 @@ class JSONRPCClient:
 
                 gas_limit = self.web3.eth.getBlock('latest')['gasLimit'] * 8 // 10
                 transaction_hash = self.send_transaction(
-                    to=typing.Address(b''),
+                    to=typing.AddressOrEmpty(b''),
                     startgas=gas_limit,
                     data=bytecode,
                 )
@@ -475,7 +475,7 @@ class JSONRPCClient:
         contract = self.web3.eth.contract(abi=contract['abi'], bytecode=contract['bin'])
         contract_transaction = contract.constructor(*constructor_parameters).buildTransaction()
         transaction_hash = self.send_transaction(
-            to=typing.Address(b''),
+            to=typing.AddressOrEmpty(b''),
             data=contract_transaction['data'],
             startgas=contract_transaction['gas'],
         )
