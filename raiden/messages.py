@@ -291,7 +291,7 @@ class EnvelopeMessage(SignedMessage):
         self.locked_amount = locked_amount
         self.locksroot = locksroot
         self.channel_identifier = channel_identifier
-        self.token_network_address = token_network_address
+        self.token_network_address = typing.Address(token_network_address)
         self.chain_id = chain_id
 
     @property
@@ -831,7 +831,7 @@ class DirectTransfer(EnvelopeMessage):
         self.message_identifier = message_identifier
         self.payment_identifier = payment_identifier
         self.token = token
-        self.recipient = recipient  #: partner's address
+        self.recipient = typing.Address(recipient)  #: partner's address
 
     @classmethod
     def unpack(cls, packed):
