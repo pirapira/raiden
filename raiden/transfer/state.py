@@ -636,8 +636,8 @@ class RouteState(State):
             node_address: typing.Address,
             channel_identifier: typing.ChannelID,
     ):
-        if not isinstance(node_address, bytes):  # bytes --> typing.Address
-            raise ValueError('node_address must be an address instance')
+        if not isinstance(node_address, typing.Address):
+            raise ValueError('node_address must be an Address instance')
 
         self.node_address = node_address
         self.channel_identifier = channel_identifier
