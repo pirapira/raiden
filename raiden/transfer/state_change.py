@@ -742,9 +742,6 @@ class ContractReceiveSecretReveal(ContractReceiveStateChange):
             block_number: typing.BlockNumber,
     ):
 
-        # XXX to be removed
-        secret_registry_address = typing.T_SecretRegistryAddress(secret_registry_address)
-
         if not isinstance(secret_registry_address, typing.T_SecretRegistryAddress):
             raise ValueError('secret_registry_address must be of type SecretRegistryAddress')
         if not isinstance(secrethash, typing.T_SecretHash):

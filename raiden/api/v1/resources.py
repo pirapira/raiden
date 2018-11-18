@@ -226,7 +226,7 @@ class PaymentResource(BaseResource):
             offset: int = None,
     ):
         return self.rest_api.get_raiden_events_payment_history_with_timestamps(
-            token_address=typing.T_TokenAddress(token_address),
+            token_address=token_address,
             target_address=target_address,
             limit=limit,
             offset=offset,
@@ -242,7 +242,7 @@ class PaymentResource(BaseResource):
     ):
         return self.rest_api.initiate_payment(
             registry_address=self.rest_api.raiden_api.raiden.default_registry.address,
-            token_address=typing.T_TokenAddress(token_address),
+            token_address=token_address,
             target_address=target_address,
             amount=amount,
             identifier=identifier,
