@@ -1165,10 +1165,10 @@ class LockedTransfer(LockedTransferBase):
     ):
 
         if not isinstance(target, Address):
-            raise ValueError('target is an invalid address')
+            raise ValueError('target must be an instance of Address')
 
         if not isinstance(initiator, Address):
-            raise ValueError('initiator is an invalid address')
+            raise ValueError('initiator must be an instance of Address')
 
         if fee > UINT256_MAX:
             raise ValueError('fee is too large')
@@ -1286,16 +1286,16 @@ class LockedTransfer(LockedTransferBase):
             message_identifier=event.message_identifier,
             payment_identifier=transfer.payment_identifier,
             nonce=balance_proof.nonce,
-            token_network_address=balance_proof.token_network_identifier,
+            token_network_address=typing.Address(balance_proof.token_network_identifier),
             token=transfer.token,
             channel_identifier=balance_proof.channel_identifier,
             transferred_amount=balance_proof.transferred_amount,
             locked_amount=balance_proof.locked_amount,
-            recipient=event.recipient,
+            recipient=typing.Address(event.recipient),
             locksroot=balance_proof.locksroot,
             lock=lock,
-            target=transfer.target,
-            initiator=transfer.initiator,
+            target=typing.Address(transfer.target),
+            initiator=typing.Address(transfer.initiator),
             fee=fee,
         )
 
@@ -1400,11 +1400,11 @@ class RefundTransfer(LockedTransfer):
             channel_identifier=balance_proof.channel_identifier,
             transferred_amount=balance_proof.transferred_amount,
             locked_amount=balance_proof.locked_amount,
-            recipient=event.recipient,
+            recipient=typing.Address(event.recipient),
             locksroot=balance_proof.locksroot,
             lock=lock,
-            target=transfer.target,
-            initiator=transfer.initiator,
+            target=typing.Address(transfer.target),
+            initiator=typing.Address(transfer.initiator),
             fee=fee,
         )
 
