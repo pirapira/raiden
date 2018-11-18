@@ -1170,6 +1170,9 @@ class LockedTransfer(LockedTransferBase):
         if not isinstance(initiator, Address):
             raise ValueError('initiator must be an instance of Address')
 
+        if not isinstance(token_network_address, Address):
+            raise ValueError('token_network_address must be an instance of Address')
+
         if fee > UINT256_MAX:
             raise ValueError('fee is too large')
 
@@ -1231,7 +1234,7 @@ class LockedTransfer(LockedTransferBase):
             message_identifier=packed.message_identifier,
             payment_identifier=packed.payment_identifier,
             nonce=packed.nonce,
-            token_network_address=packed.token_network_address,
+            token_network_address=typing.Address(packed.token_network_address),
             token=packed.token,
             channel_identifier=packed.channel_identifier,
             transferred_amount=packed.transferred_amount,
@@ -1364,7 +1367,7 @@ class RefundTransfer(LockedTransfer):
             message_identifier=packed.message_identifier,
             payment_identifier=packed.payment_identifier,
             nonce=packed.nonce,
-            token_network_address=packed.token_network_address,
+            token_network_address=typing.Address(packed.token_network_address),
             token=packed.token,
             channel_identifier=packed.channel_identifier,
             transferred_amount=packed.transferred_amount,
@@ -1436,7 +1439,8 @@ class RefundTransfer(LockedTransfer):
             message_identifier=data['message_identifier'],
             payment_identifier=data['payment_identifier'],
             nonce=data['nonce'],
-            token_network_address=to_canonical_address(data['token_network_address']),
+            token_network_address=typing.Address(
+                to_canonical_address(data['token_network_address'])),
             token=typing.Address(
                 to_canonical_address(data['token'])),
             channel_identifier=data['channel_identifier'],

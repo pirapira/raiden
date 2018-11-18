@@ -187,7 +187,7 @@ class ActionTransferDirect(StateChange):
             payment_identifier: typing.PaymentID,
             amount: typing.PaymentAmount,
     ):
-        if not isinstance(receiver_address, bytes): # bytes --> typing.Address
+        if not isinstance(receiver_address, typing.Address):
             raise ValueError('receiver_address must be address')
 
         if not isinstance(amount, int):
@@ -590,7 +590,7 @@ class ActionChangeNodeNetworkState(StateChange):
             node_address: typing.Address,
             network_state: str,
     ):
-        if not isinstance(node_address, bytes): # bytes --> typing.Address
+        if not isinstance(node_address, typing.Address):
             raise ValueError('node_address must be an address instance')
 
         self.node_address = node_address
@@ -825,10 +825,10 @@ class ContractReceiveChannelBatchUnlock(ContractReceiveStateChange):
         if not isinstance(token_network_identifier, typing.T_TokenNetworkID):
             raise ValueError('token_network_identifier must be of type TokenNtetworkIdentifier')
 
-        if not isinstance(participant, bytes):  # bytes --> typing.Address
+        if not isinstance(participant, typing.Address):
             raise ValueError('participant must be of type address')
 
-        if not isinstance(partner, bytes):  # bytes --> typing.Address
+        if not isinstance(partner, typing.Address):
             raise ValueError('partner must be of type address')
 
         super().__init__(transaction_hash, block_number)
@@ -887,9 +887,12 @@ class ContractReceiveChannelBatchUnlock(ContractReceiveStateChange):
     def from_dict(cls, data: typing.Dict[str, typing.Any]) -> 'ContractReceiveChannelBatchUnlock':
         return cls(
             transaction_hash=deserialize_bytes(data['transaction_hash']),
-            token_network_identifier=to_canonical_address(data['token_network_identifier']),
-            participant=to_canonical_address(data['participant']),
-            partner=to_canonical_address(data['partner']),
+            token_network_identifier=typing.Address(
+                to_canonical_address(data['token_network_identifier'])),
+            participant=typing.Address(
+                to_canonical_address(data['participant'])),
+            partner=typing.Address(
+                to_canonical_address(data['partner'])),
             locksroot=deserialize_bytes(data['locksroot']),
             unlocked_amount=int(data['unlocked_amount']),
             returned_tokens=int(data['returned_tokens']),
@@ -910,10 +913,10 @@ class ContractReceiveRouteNew(ContractReceiveStateChange):
             block_number: typing.BlockNumber,
     ):
 
-        if not isinstance(participant1, bytes):  # bytes --> Typing.Address
+        if not isinstance(participant1, typing.Address):
             raise ValueError('participant1 must be of type address')
 
-        if not isinstance(participant2, bytes):  # bytes --> Typing.Address
+        if not isinstance(participant2, typing.Address):
             raise ValueError('participant2 must be of type address')
 
         super().__init__(transaction_hash, block_number)

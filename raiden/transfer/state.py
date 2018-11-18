@@ -851,7 +851,7 @@ class BalanceProofSignedState(State):
         if not isinstance(locksroot, typing.T_Keccak256):
             raise ValueError('locksroot must be a keccak256 instance')
 
-        if not isinstance(token_network_identifier, bytes):  # typing.Address
+        if not isinstance(token_network_identifier, typing.Address):
             raise ValueError('token_network_identifier must be an address instance')
 
         if not isinstance(channel_identifier, typing.T_ChannelID):
@@ -863,7 +863,7 @@ class BalanceProofSignedState(State):
         if not isinstance(signature, typing.T_Signature):
             raise ValueError('signature must be a signature instance')
 
-        if not isinstance(sender, bytes):  # typing.Address
+        if not isinstance(sender, typing.Address):
             raise ValueError('sender must be an address instance')
 
         if not isinstance(chain_id, typing.T_ChainID):
@@ -973,7 +973,8 @@ class BalanceProofSignedState(State):
             transferred_amount=int(data['transferred_amount']),
             locked_amount=int(data['locked_amount']),
             locksroot=serialization.deserialize_bytes(data['locksroot']),
-            token_network_identifier=to_canonical_address(data['token_network_identifier']),
+            token_network_identifier=typing.Address(
+                to_canonical_address(data['token_network_identifier'])),
             channel_identifier=int(data['channel_identifier']),
             message_hash=serialization.deserialize_bytes(data['message_hash']),
             signature=serialization.deserialize_bytes(data['signature']),
